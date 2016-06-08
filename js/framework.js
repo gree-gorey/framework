@@ -1,43 +1,54 @@
-function getStyleSheet() {
-  for(var i=0; i<document.styleSheets.length; i++) {
-    var sheet = document.styleSheets[i];
-      console.log(sheet.title);
-      sheet.insertRule(".new { border: 1px solid black;}", 1);
-      console.log(sheet);
-    // if(sheet.title == unique_title) {
-    //   return sheet;
-    // }
-  }
-}
-
-getStyleSheet();
-
-Element.prototype.fontSize = function(size) {
-    this.style.fontSize = size;
+Element.prototype.addClass = function(className) {
+    this.classList.add(className);
 };
 
-function _(className) {
-    return document.getElementsByClassName(className);
-}
-
-var div = _("new");
-
-console.log(div);
-
-// var newEl = document.createElement("div");
-
-window.onload = function () {
-    var newEl = document.getElementById("1");
-    console.log(newEl);
-
-    // newEl.foo();
-
-    newEl.fontSize("10pt");
+Element.prototype.removeClass = function(className) {
+    this.classList.remove(className);
 };
 
-// var newEl = document.getElementById("1");
-// console.log(newEl);
-//
-// // newEl.foo();
-//
-// newEl.foofoo();
+Element.prototype.toggleClass = function(className) {
+    this.classList.toggle(className);
+};
+
+Element.prototype.hasClass = function(className) {
+    return this.classList.contains(className);
+};
+
+Element.prototype.setStyle = function(propertyName, value) {
+    this.style[propertyName] = value;
+};
+
+NodeList.prototype.addClass = function(className) {
+    for (let i = 0; i < this.length; i++) {
+        this[i].classList.add(className);
+    }
+};
+
+NodeList.prototype.removeClass = function(className) {
+    for (let i = 0; i < this.length; i++) {
+        this[i].classList.remove(className);
+    }
+};
+
+NodeList.prototype.toggleClass = function(className) {
+    for (let i = 0; i < this.length; i++) {
+        this[i].classList.toggle(className);
+    }
+};
+
+NodeList.prototype.setStyle = function(propertyName, value) {
+    for (let i = 0; i < this.length; i++) {
+        this[i].style[propertyName] = value;
+    }
+};
+
+function _(query) {
+    var result = document.querySelectorAll(query);
+    if (result.length > 1) {
+        return result
+    } else {
+        return result[0]
+    }
+
+}
+
